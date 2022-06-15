@@ -53,10 +53,6 @@ while True:
         else:
             lmList_R = lmList2
             lmList_L = lmList1
-        # if label1 == "Left":
-        #     lmList_R = lmList2
-        #     lmList_L = lmList1
-
 
         if lmList_L[20][2] < lmList_L[18][2]:
             x1_R, y1_R = lmList_R[4][1], lmList_R[4][2]
@@ -83,21 +79,6 @@ while True:
             cv2.rectangle(img, (760, 10), (1150, 70), (0, 255, 255), cv2.FILLED)
             cv2.putText(img, 'Setting: Switch OFF', (800, 50), cv2.FONT_HERSHEY_COMPLEX, 0.9, (0, 255, 0), 2)
 
-            lmList_R,label1 = detector.fingerPosition(img, hand_no=0)
-            sequence_R = []
-            if len(lmList_R) != 0:
-                if lmList_R[4][1] < lmList_R[3][1]:
-                    sequence_R.append(1)
-                else:
-                    sequence_R.append(0)
-
-                for tip in fingerTips:
-                    if lmList_R[tip][2] < lmList_R[tip - 2][2]:
-                        sequence_R.append(1)
-                    else:
-                        sequence_R.append(0)
-
-
         if label == 'Left':
             cv2.putText(img, 'Left Hand', (460, 50), cv2.FONT_HERSHEY_COMPLEX, 0.9, (0, 255, 0), 2)
             cv2.rectangle(img, (760, 10), (1150, 70), (0, 255, 255), cv2.FILLED)
@@ -122,15 +103,6 @@ while True:
 
             img[100:460, 920:1280] = overLay[show]
             cv2.rectangle(img, (920, 100), (1280, 460), (0, 255, 255), 5)
-
-    value_R = sequence_R.count(1)
-    # if value_R == 5:
-    #     pin1.write(0)
-    #     pin2.write(0)
-    #     pin3.write(0)
-    #     pin4.write(0)
-    #     pin5.write(0)
-    #     quit()
 
     pin1.write(sequence_L[0] * brightness)
     pin2.write(sequence_L[1] * brightness)
